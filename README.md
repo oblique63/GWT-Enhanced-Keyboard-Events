@@ -17,35 +17,34 @@ KeyDownEvent -> EnhancedKeyDownEvent <br />
 etc...
 </p>
 
-<p>
 So while you might have normally written:
->    someWidget.addKeyDownHandler(new KeyDownHandler() {
->        public void onKeyDown(KeyDownEvent event) {
->            if (event.getNativeKeyCode() == 65)
->                Window.alert("a");
->            if (event.getNativeKeyCode() == 66)
->                Window.alert("b");
->            if (event.getNativeKeyCode() == 67)
->                Window.alert("c");
->            // etc...
->        }
->    });
+    someWidget.addKeyDownHandler(new KeyDownHandler() {
+        public void onKeyDown(KeyDownEvent event) {
+            if (event.getNativeKeyCode() == 65)
+                Window.alert("a");
+            if (event.getNativeKeyCode() == 66)
+                Window.alert("b");
+            if (event.getNativeKeyCode() == 67)
+                Window.alert("c");
+            // etc...
+        }
+    });
 
 You can now write:
->    someWidget.addKeyDownHandler(new EnhancedKeyDownHandler() {
->        public void onKeyDown(EnhancedKeyDownEvent event) {
->            if (event.isChar())
->                Window.alert(event.getCharInput());
->        }
->    });
+    someWidget.addKeyDownHandler(new EnhancedKeyDownHandler() {
+        public void onKeyDown(EnhancedKeyDownEvent event) {
+            if (event.isChar())
+                Window.alert(event.getCharInput());
+        }
+    });
 
-</p>
 
-<p>
+
+
 Please note that these event classes don't extend their native counterparts however, so if you find yourself needing to call something from the original native KeyEvent they wrap, simply use:
->    enhancedEvent.NATIVE_KEY_EVENT
+    enhancedEvent.NATIVE_KEY_EVENT
 to access the event, and call methods from it directly.
-</p>
+
 
 <p>
 Dive into EnhancedKeyCodeEvent.java for more info.
