@@ -1,10 +1,19 @@
 
 import com.google.gwt.event.dom.client.KeyCodeEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyEvent;
 
-public class EnhancedKeyCodeEvent {
-	private int keyCode;
-	public EnhancedKeyCodeEvent(int keyCode) { this.keyCode = keyCode; }
+public abstract class EnhancedKeyCodeEvent {
+	protected int keyCode;
+	protected KeyEvent<?> keyEvent;
+	
+	//---{ Standard KeyEvent methods }-------------------------------------------
+	public void stopPropagation() { keyEvent.stopPropagation(); }
+	public void preventDefault() { keyEvent.preventDefault(); }
+	public Object getSource() { return keyEvent.getSource(); }
+	public String toDebugString() { return keyEvent.toDebugString(); }
+	public String toString() { return keyEvent.toString(); }
+	
 	
 	//---{ General Input Checks }----------------------------------------------------
 	public boolean isNumber() {
@@ -23,23 +32,26 @@ public class EnhancedKeyCodeEvent {
 		return KeyCodeEvent.isArrow(keyCode);
 	}
 	
-	public boolean isModifier() {
-		switch (keyCode) {
-			case KeyCodes.KEY_ALT:
-			case KeyCodes.KEY_CTRL:
-			case KeyCodes.KEY_SHIFT:
-			case 91: // Left Super Key
-			case 92: // Right Super Key
-				return true;
-			default:
-				return false;
-		}
+	public boolean isModifierDown() {
+		return keyEvent.isAnyModifierKeyDown();
 	}
 	
-	//---{ Specific Input Checks }----------------------------------------------------
-	public boolean isAlt() { return keyCode == KeyCodes.KEY_ALT; }
+	public boolean isFKey() {
+		return KeyCodeMaps.F_KEY_MAP.containsKey(keyCode);
+	}
+	
+	public boolean isSpecialKey() {
+		return KeyCodeMaps.SPECIAL_KEY_MAP.containsKey(keyCode);
+	}
+	
+	//---{ Specific Modifier Key Press Checks }----------------------------------------
+	public boolean isAltDown() { return keyEvent.isAltKeyDown(); }
+	public boolean isCtrlDown() { return keyEvent.isControlKeyDown(); }
+	public boolean isMetaDown() { return keyEvent.isMetaKeyDown(); }
+	public boolean isShiftDown() { return keyEvent.isShiftKeyDown(); }
+	
+	//---{ Specific 'Special Key' Input Checks }---------------------------------------
 	public boolean isBackspace() { return keyCode == KeyCodes.KEY_BACKSPACE; }
-	public boolean isCtrl() { return keyCode == KeyCodes.KEY_CTRL; }
 	public boolean isDelete() { return keyCode == KeyCodes.KEY_DELETE; }
 	public boolean isEnd() { return keyCode == KeyCodes.KEY_END; }
 	public boolean isEnter() { return keyCode == KeyCodes.KEY_ENTER; }
@@ -47,7 +59,6 @@ public class EnhancedKeyCodeEvent {
 	public boolean isHome() { return keyCode == KeyCodes.KEY_HOME; }
 	public boolean isPageDown() { return keyCode == KeyCodes.KEY_PAGEDOWN; }
 	public boolean isPageUp() { return keyCode == KeyCodes.KEY_PAGEUP; }
-	public boolean isShift() { return keyCode == KeyCodes.KEY_SHIFT; }
 	public boolean isTab() { return keyCode == KeyCodes.KEY_TAB; }
 	public boolean isSpaceBar() { return keyCode == 32; }
 	public boolean isLeftSuper() { return keyCode == 91; }
@@ -66,10 +77,21 @@ public class EnhancedKeyCodeEvent {
 		return KeyCodeMaps.CHAR_MAP.get(keyCode);
 	}
 	
-	public String getSymbolInput(boolean holdingShift) {
-		if (holdingShift) 
+	public String getSymbolInput() {
+		if (keyEvent.isShiftKeyDown() && KeyCodeMaps.SHIFT_SYMBOL_MAP.containsKey(keyCode)) 
 			return KeyCodeMaps.SHIFT_SYMBOL_MAP.get(keyCode);
 		else
 			return KeyCodeMaps.SYMBOL_MAP.get(keyCode);
+	}
+	
+	/**
+	 * @return String of the F-key; e.g. "f1","f2","f3", etc.
+	 */
+	public String getFKey() { 
+		return KeyCodeMaps.F_KEY_MAP.get(keyCode);
+	}
+	
+	public String getSpecialKey() {
+		return KeyCodeMaps.SPECIAL_KEY_MAP.get(keyCode);
 	}
 }

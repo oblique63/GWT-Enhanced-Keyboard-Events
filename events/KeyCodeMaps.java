@@ -7,10 +7,14 @@ public class KeyCodeMaps {
 	
 	public static final HashMap<Integer,Integer> INT_MAP;
 	public static final HashMap<Integer,String> CHAR_MAP;
+	public static final HashMap<Integer, String> F_KEY_MAP;
 	public static final HashMap<Integer,String> SYMBOL_MAP;
 	
 	// For symbols obtained by holding SHIFT
 	public static final HashMap<Integer,String> SHIFT_SYMBOL_MAP;
+	
+	// All other 'special' keys
+	public static final HashMap<Integer, String> SPECIAL_KEY_MAP;
 	
 	static {
 		// Numerical Input
@@ -31,11 +35,19 @@ public class KeyCodeMaps {
 			i++;
 		}
 		
+		
+		// F-key input
+		F_KEY_MAP = new HashMap<Integer, String>();
+		for (int j = 0; j < 12; j++)
+			F_KEY_MAP.put(112+j, "f"+(j+1));
+		
+		
 		// Symbol Input
 		SYMBOL_MAP = new HashMap<Integer,String>();
 		//              CODE     SYMBOL
 		SYMBOL_MAP.put(   45  ,   "-"   ); // Opera
 		SYMBOL_MAP.put(   59  ,   ";"   ); // Firefox
+		SYMBOL_MAP.put(   61  ,   "="   ); // Firefox
 		SYMBOL_MAP.put(  106  ,   "*"   );
 		SYMBOL_MAP.put(  107  ,   "+"   );
 		SYMBOL_MAP.put(  109  ,   "-"   );
@@ -68,6 +80,7 @@ public class KeyCodeMaps {
 		SHIFT_SYMBOL_MAP.put(  56  ,   "("   );
 		SHIFT_SYMBOL_MAP.put(  57  ,   ")"   );
 		SHIFT_SYMBOL_MAP.put(  59  ,   ":"   ); // Firefox
+		SHIFT_SYMBOL_MAP.put(  61  ,   "+"   ); // Firefox
 		SHIFT_SYMBOL_MAP.put(  95  ,   "_"   ); // Safari
 		SHIFT_SYMBOL_MAP.put( 186  ,   ":"   );
 		SHIFT_SYMBOL_MAP.put( 187  ,   "+"   );
@@ -80,5 +93,36 @@ public class KeyCodeMaps {
 		SHIFT_SYMBOL_MAP.put( 220  ,   "|"   );
 		SHIFT_SYMBOL_MAP.put( 221  ,   "}"   );
 		SHIFT_SYMBOL_MAP.put( 222  ,   "\""  );
+		
+		
+		// Special keys
+		SPECIAL_KEY_MAP = new HashMap<Integer, String>();
+		
+		SPECIAL_KEY_MAP.put(8, "backspace");
+		SPECIAL_KEY_MAP.put(9, "tab");
+		SPECIAL_KEY_MAP.put(13, "enter");
+		SPECIAL_KEY_MAP.put(16, "shift");
+		SPECIAL_KEY_MAP.put(17, "ctrl");
+		SPECIAL_KEY_MAP.put(18, "alt");
+		SPECIAL_KEY_MAP.put(19, "pause");
+		SPECIAL_KEY_MAP.put(20, "capsLock");
+		SPECIAL_KEY_MAP.put(27, "esc");
+		SPECIAL_KEY_MAP.put(32, "space");
+		SPECIAL_KEY_MAP.put(33, "pageUp");
+		SPECIAL_KEY_MAP.put(34, "pageDown");
+		SPECIAL_KEY_MAP.put(35, "end");
+		SPECIAL_KEY_MAP.put(36, "home");
+		//SPECIAL_MAP.put(37, "left");
+		//SPECIAL_MAP.put(38, "up");
+		//SPECIAL_MAP.put(39, "right");
+		//SPECIAL_MAP.put(40, "down");
+		SPECIAL_KEY_MAP.put(45, "insert");
+		SPECIAL_KEY_MAP.put(46, "delete");
+		SPECIAL_KEY_MAP.put(91, "leftSuper");
+		SPECIAL_KEY_MAP.put(92, "rightSuper");
+		SPECIAL_KEY_MAP.put(93, "select");
+		SPECIAL_KEY_MAP.put(144, "numberLock");
+		SPECIAL_KEY_MAP.put(145, "scrollLock");
+		SPECIAL_KEY_MAP.put(224, "meta");
 	}
 }
