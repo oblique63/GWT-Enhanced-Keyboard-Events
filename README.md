@@ -11,8 +11,8 @@ Usage
 -----
 Basically just include the 'events' package along with your client-side GWT code, and replace any instances where you may have used any KeyEvents/KeyHandlers, with their 'Enhanced' counterparts:
 
-KeyDownHandler -> EnhancedKeyDownHandler
-KeyDownEvent -> EnhancedKeyDownEvent
+KeyDownHandler -> EnhancedKeyDownHandler<br>
+KeyDownEvent -> EnhancedKeyDownEvent<br>
 etc...
 
 So while you might have normally written:
