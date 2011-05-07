@@ -1,3 +1,4 @@
+
 GWT Enhanced Keyboard Events
 ============================
 This library provides simple wrappers around the native GWT 'KeyEvent' classes, for the sheer sake of eliminating the need to look up various key codes all the time. This may be a potentially useless, horribly unoptimized abstraction, but I found it makes client-side GWT code mildly easier to write+read, so I figured I'd release it.
@@ -18,6 +19,7 @@ etc...
 </p>
 
 So while you might have normally written:
+```java
     someWidget.addKeyDownHandler(new KeyDownHandler() {
         public void onKeyDown(KeyDownEvent event) {
             if (event.getNativeKeyCode() == 65)
@@ -29,15 +31,16 @@ So while you might have normally written:
             // etc...
         }
     });
-
+```
 You can now write:
+```java
     someWidget.addKeyDownHandler(new EnhancedKeyDownHandler() {
         public void onKeyDown(EnhancedKeyDownEvent event) {
             if (event.isChar())
                 Window.alert(event.getCharInput());
         }
     });
-
+```
 
 
 
